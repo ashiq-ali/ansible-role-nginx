@@ -13,16 +13,6 @@ pipeline {
     
         }
     }
-        stage('Build') {
-            steps {
-                lock('test') {
-                // Build your application here
-                    script {
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-            }
-        }
         
         stage('Test') {
             steps {
