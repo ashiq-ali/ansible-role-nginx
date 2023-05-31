@@ -39,4 +39,28 @@ pipeline {
         
         failure {
             // This block will only run if any stage fails
-            echo 'At least
+            echo 'At least one stage failed!'
+        }
+        
+        unstable {
+            // This block will only run if any stage is unstable
+            echo 'At least one stage is unstable!'
+        }
+        
+        aborted {
+            // This block will only run if the pipeline is aborted
+            echo 'Pipeline aborted!'
+        }
+    }
+    
+    post {
+        success {
+            // Add a new step to install pip packages
+            steps {
+                script {
+                    sh 'pip install -r requirements.txt'
+                }
+            }
+        }
+    }
+}
