@@ -3,8 +3,8 @@ pipeline {
 
     stages {
         stage('Build') {
-            lock('test') {
             steps {
+                lock('test') {
                 // Build your application here
                 echo 'Building...'
             }
