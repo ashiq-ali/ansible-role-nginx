@@ -5,9 +5,9 @@ pipeline {
         stage('Build') {
             steps {
                 lock('test') {
-                // Build your application here
-                echo 'Building...'
-            }
+                    // Build your application here
+                    echo 'Building...'
+                }
             }
         }
         
@@ -25,7 +25,7 @@ pipeline {
             }
         }
     }
-
+    
     post {
         always {
             // This block will always run, regardless of the stage result
@@ -39,17 +39,4 @@ pipeline {
         
         failure {
             // This block will only run if any stage fails
-            echo 'At least one stage failed!'
-        }
-        
-        unstable {
-            // This block will only run if any stage is unstable
-            echo 'At least one stage is unstable!'
-        }
-        
-        aborted {
-            // This block will only run if the pipeline is aborted
-            echo 'Pipeline aborted!'
-        }
-    }
-}
+            echo 'At least
