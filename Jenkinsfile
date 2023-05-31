@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-     stage('Build') {
+     stage('Build MY APP') {
         steps {
             // Build your application here
                 script {
