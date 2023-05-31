@@ -1,36 +1,69 @@
-pipeline{
+pipeline {
     agent any
 
-    environment {
-        OUTPUT='ansible-role.tar.gz'
+    stages {
+     stage('Build MY APP') {
+        steps {
+            lock('test') {
+            // Build your application here
+                script {
+                sh '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+                sh 'brew install python@3.8'
+            }
+            }
+    
+        }
     }
-    stages{
-        stage('SCM Checkout'){
-            steps{
-                git 'https://github.com/ashiq-ali/myapp-ansible.git'
-            }
-        }
-        stage('Execute Ansible Playbook'){
-            steps{
-                ansiblePlaybook disableHostKeyChecking: true, installation: 'Ansible2', inventory: 'hosts', playbook: 'test-playbook.yml'
-            }
-        }
-        stage('Check Curl version'){
-            steps{
-                  sh "curl --version "
-            }
-        } 
-        stage('Download Ansible Role'){
-            steps{ 
-               script{ 
-                  sh '''
-                  set +x
-                  curl -OL --silent --insecure 'https://ashiqartifactory.jfrog.io/artifactory/example-repo-local/ansible-nginx.tar.gz' -o ${OUTPUT}
-                  echo "[INFO] - Ansible Role"
-                  tar -xzf ${OUTPUT}
-                  '''
+        stage('Build') {
+            steps {
+                lock('test') {
+                // Build your application here
+                    script {
+                    sh 'pip install -r requirements.txt'
                 }
             }
-        } 
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Run tests here
+                echo 'Running tests...'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                // Deploy your application here
+                echo 'Deploying...'
+            }
+        }
+    }
+
+    post {
+        always {
+            // This block will always run, regardless of the stage result
+            echo 'Always executing...'
+        }
+        
+        success {
+            // This block will only run if all stages are successful
+            echo 'All stages successful!'
+        }
+        
+        failure {
+            // This block will only run if any stage fails
+            echo 'At least one stage failed!'
+        }
+        
+        unstable {
+            // This block will only run if any stage is unstable
+            echo 'At least one stage is unstable!'
+        }
+        
+        aborted {
+            // This block will only run if the pipeline is aborted
+            echo 'Pipeline aborted!'
+        }
     }
 }
