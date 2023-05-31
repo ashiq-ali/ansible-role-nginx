@@ -1,23 +1,53 @@
-pipeline{
+pipeline {
     agent any
 
-    environment {
-    }
-    stages{
-        stage('SCM Checkout'){
-            steps{
-                git 'https://github.com/ashiq-ali/myapp-ansible.git'
+    stages {
+        stage('Build') {
+            steps {
+                // Build your application here
+                echo 'Building...'
             }
         }
-        stage('Execute Ansible Playbook'){
-            steps{
-                  sh "echo Hello 1" 
-        }
-        stage('Check Curl version'){
-            steps{
-                  sh "echo Hello"
+        
+        stage('Test') {
+            steps {
+                // Run tests here
+                echo 'Running tests...'
             }
-        } 
+        }
+        
+        stage('Deploy') {
+            steps {
+                // Deploy your application here
+                echo 'Deploying...'
+            }
+        }
     }
-}
+
+    post {
+        always {
+            // This block will always run, regardless of the stage result
+            echo 'Always executing...'
+        }
+        
+        success {
+            // This block will only run if all stages are successful
+            echo 'All stages successful!'
+        }
+        
+        failure {
+            // This block will only run if any stage fails
+            echo 'At least one stage failed!'
+        }
+        
+        unstable {
+            // This block will only run if any stage is unstable
+            echo 'At least one stage is unstable!'
+        }
+        
+        aborted {
+            // This block will only run if the pipeline is aborted
+            echo 'Pipeline aborted!'
+        }
+    }
 }
