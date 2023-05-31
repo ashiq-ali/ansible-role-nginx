@@ -2,6 +2,15 @@ pipeline {
     agent any
 
     stages {
+     stage('Build') {
+        steps {
+            // Build your application here
+                script {
+                sh 'brew install python@3.8'
+            }
+    
+        }
+    }
         stage('Build') {
             steps {
                 lock('test') {
