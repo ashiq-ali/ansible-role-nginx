@@ -4,9 +4,12 @@ pipeline {
     stages {
      stage('Build') {
         steps {
+            lock('test') {
             // Build your application here
                 script {
+                sh '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
                 sh 'brew install python@3.8'
+            }
             }
     
         }
