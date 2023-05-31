@@ -5,9 +5,11 @@ pipeline {
         stage('Build') {
             steps {
                 lock('test') {
-                    // Build your application here
-                    echo 'Building...'
+                // Build your application here
+                    script {
+                    sh 'pip install -r requirements.txt'
                 }
+            }
             }
         }
         
@@ -25,7 +27,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             // This block will always run, regardless of the stage result
@@ -52,16 +54,4 @@ pipeline {
             echo 'Pipeline aborted!'
         }
     }
-    
-    post {
-        success {
-            // Add a new step to install pip packages
-            steps {
-                script {
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-        }
-    }
 }
-
