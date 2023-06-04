@@ -2,15 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+     stage('Build MY APP') {
         steps {
             lock(label: 'lock-test', quantity: 1, resource : null) {
             // Build your application here
                 script {
-                sh 'sleep 5m'
+                sh 'sleep 36000'
             }
             }
+    
         }
+    }
+        stage('Build') {
+            steps {
+                lock('test') {
+                // Build your application here
+                    script {
+                    sh 'pip install -r requirements.txt'
+                }
+            }
+            }
         }
         
         stage('Test') {
