@@ -4,7 +4,7 @@ pipeline {
     stages {
      stage('Build MY APP') {
         steps {
-            lock('test', quantity: 2) {
+            lock(resource: 'test', quantity: 2) {
             // Build your application here
                 script {
                 sh '/bin/bash test.sh'
