@@ -7,7 +7,7 @@ pipeline {
             lock(label: 'lock-test', quantity: 1, resource : null) {
             // Build your application here
                 script {
-                sh '/bin/bash test.sh'
+                sh 'sleep 5m'
             }
             }
     
