@@ -3,14 +3,14 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
-                lock(label: 'lock-test', quantity: 1, resource : null){
-                // Build your application here
-                    script {
-                    sh 'pip install -r requirements.txt'
-                }
+        steps {
+            lock(label: 'lock-test', quantity: 1, resource : null) {
+            // Build your application here
+                script {
+                sh 'sleep 5m'
             }
             }
+        }
         }
         
         stage('Test') {
