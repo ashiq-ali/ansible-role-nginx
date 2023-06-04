@@ -4,7 +4,7 @@ pipeline {
     stages {
      stage('Build MY APP') {
         steps {
-            lock(extra:[label: 'label-test', quantity: 2]) {
+            lock(extra:[label: 'label-test', quantity: 2, resource : null]) {
             // Build your application here
                 script {
                 sh '/bin/bash test.sh'
