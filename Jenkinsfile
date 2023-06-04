@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                lock('test') {
+                lock('test', quantity: 2) {
                 // Build your application here
                     script {
                     sh 'pip install -r requirements.txt'
